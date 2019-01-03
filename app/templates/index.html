@@ -1,8 +1,8 @@
 {% extends "_site.html" %}
 
 {% block content %}
-    <h1>Hello {{ user.username }}!</h1>
-    {% for quote in quotes %}
-    <div><p>{{ quote.forename }} {{ quote.surname }} [{{ quote.email }}]</p></div>
-    {% endfor %}
+  <h1>Hello {{ user.username }}!</h1>
+  {% for quote in quotes %}
+  <div><p>{{ quote.forename }} {{ quote.surname }} [{{ quote.email }}]</p></div>
+  {% endfor %}
 {% endblock %}
