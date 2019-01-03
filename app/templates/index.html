@@ -1,15 +1,8 @@
-<html>
-    <head>
-        {% if title %}
-        <title>SalApp | {{ title }}</title>
-        {% else %}
-        <title>SalApp</title>
-        {% endif %}
-    </head>
-    <body>
-        <h1>Hello {{ user.username }}!</h1>
-        {% for quote in quotes %}
-        <div><p>{{ quote.forename }} {{ quote.surname }} [{{ quote.email }}]</p></div>
-        {% endfor %}
-    </body>
-</html>
+{% extends "site.html" %}
+
+{% block content %}
+    <h1>Hello {{ user.username }}!</h1>
+    {% for quote in quotes %}
+    <div><p>{{ quote.forename }} {{ quote.surname }} [{{ quote.email }}]</p></div>
+    {% endfor %}
+{% endblock %}
