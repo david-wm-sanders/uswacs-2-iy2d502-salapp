@@ -1,0 +1,40 @@
+{% extends "_site.html" %}
+
+{% block content %}
+  <h1 class="display-4">Get a Quote!</h1>
+  <hr/>
+  <!-- DEBUG: include novalidate for the purpose of testing server-side validation -->
+  <!-- TODO: PRODUCTION_ALERT: remove novalidate -->
+  <form action="" method="POST" novalidate>
+    <!-- Security considerations: Include the form's hidden tags to enable the CSRF protection by including the token in a hidden field -->
+    {{ form.hidden_tag() }}
+    <p>{{ form.email.label }} {{ form.email(size=32) }} {{ form.password.label }} {{ form.password(size=32) }}</p>
+    <hr/>
+    <p>{{ form.forename.label }} {{ form.forename(size=32) }} {{ form.surname.label }} {{ form.surname(size=32) }}</p>
+    <p>{{ form.telephone.label }} {{ form.telephone(size=16) }}</p>
+    <p>{{ form.account_number.label }} {{ form.account_number(size=16) }} {{ form.sort_code.label }} {{ form.sort_code(size=8) }}</p>
+    <hr/>
+    <p>{{ form.address.label }} {{ form.address(size=64) }}</p>
+    <p>{{ form.postcode.label }} {{ form.postcode(size=8) }}</p>
+    <hr/>
+    <!-- Display server-side form validation error messages -->
+    {% if form.errors %}
+      <ul>
+      {% for field, errors in form.errors.items() %}
+        <li>{{ form[field].label }} {{ ' '.join(errors) }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+    <p>{{ form.submit() }}</p>
+  </form>
+  <!-- Display flashed messages -->
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <!-- <ul class=flashes> -->
+      {% for message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
+      <!-- </ul> -->
+    {% endif %}
+  {% endwith %}
+{% endblock %}
