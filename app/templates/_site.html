@@ -18,11 +18,11 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <!-- <a class="navbar-brand" href="/index">SalApp</a> -->
       <div class="navbar-nav">
-        <a class="nav-item nav-link" href="/index">SalApp</a>
-        <a class="nav-item nav-link" href="/get-a-quote">Get a Quote!</a>
+        <a class="nav-item nav-link" href="{{ url_for('index') }}">SalApp</a>
+        <a class="nav-item nav-link" href="{{ url_for('get_a_quote') }}">Get a Quote!</a>
       </div>
       <div class="navbar-nav ml-auto">
-        <a class="nav-item nav-link" href="/about">About</a>
+        <a class="nav-item nav-link" href="{{ url_for('about') }}">About</a>
       </div>
     </nav>
     <div class="container-fluid">
