@@ -37,7 +37,11 @@
     {% if form.errors %}
       <ul>
       {% for field, errors in form.errors.items() %}
-        <li>{{ form[field].label }} {{ ' '.join(errors) }}</li>
+        {% if field == "recaptcha" %}
+          <li>reCAPTCHA: {{ ' '.join(errors) }}</li>
+        {% else %}
+          <li>{{ form[field].label }}: {{ ' '.join(errors) }}</li>
+        {% endif %}
       {% endfor %}
       </ul>
     {% else %}
