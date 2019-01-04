@@ -9,13 +9,13 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"/>
 
     {% if title %}
-    <title>SalApp | {{ title }}</title>
+      <title>SalApp | {{ title }}</title>
     {% else %}
-    <title>SalApp</title>
+      <title>SalApp</title>
     {% endif %}
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <!-- <a class="navbar-brand" href="/index">SalApp</a> -->
       <div class="navbar-nav">
         <a class="nav-item nav-link" href="/index">SalApp</a>
@@ -25,7 +25,9 @@
         <a class="nav-item nav-link" href="/about">About</a>
       </div>
     </nav>
-    {% block content %}{% endblock %}
+    <div class="container-fluid">
+      {% block content %}{% endblock %}
+    </div>
 
     <!-- JS required for Bootstrap functionality -->
     <!-- Security considerations: check the integrity of the scripts using the "integrity" attribute and set the "crossorigin" attribute to "anonymous" to prevent cross-origin data leaks -->
