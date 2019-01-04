@@ -24,17 +24,19 @@
         <li>{{ form[field].label }} {{ ' '.join(errors) }}</li>
       {% endfor %}
       </ul>
+    {% else %}
+      <p>No server-side validation error messages.</p>
     {% endif %}
     <p>{{ form.submit() }}</p>
   </form>
   <!-- Display flashed messages -->
   {% with messages = get_flashed_messages() %}
     {% if messages %}
-      <!-- <ul class=flashes> -->
       {% for message in messages %}
         <p>{{ message }}</p>
       {% endfor %}
-      <!-- </ul> -->
+    {% else %}
+      <p>No flashed messages.</p>
     {% endif %}
   {% endwith %}
 {% endblock %}
