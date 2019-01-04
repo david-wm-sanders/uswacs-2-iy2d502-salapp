@@ -1,4 +1,8 @@
 __pycache__/
 venv/
 
+# Security consideration:
+# Exclude .env so that it can include private variables (like private/secret keys, db login creds, etc)
+# This exclusion will prevent aforementioned private variables from ending up in public repos!
+# Ref: http://flask.pocoo.org/docs/1.0/cli/#environment-variables-from-dotenv
 .env
