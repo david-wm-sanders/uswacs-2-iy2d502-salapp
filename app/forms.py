@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+from flask_wtf.recaptcha import RecaptchaField
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email
 
@@ -13,4 +14,5 @@ class QuoteForm(FlaskForm):
     address = StringField("Address", validators=[DataRequired()])
     town = StringField("Town", validators=[DataRequired()])
     postcode = StringField("Postcode", validators=[DataRequired()])
+    recaptcha = RecaptchaField()
     submit = SubmitField("Request Quote!")

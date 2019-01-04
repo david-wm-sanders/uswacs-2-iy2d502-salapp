@@ -43,6 +43,8 @@
     {% else %}
       <p>No server-side validation error messages.</p>
     {% endif %}
+    <!-- Display the reCAPTCHA -->
+    {{ form.recaptcha }}
     <!-- Display the submit button -->
     {{ form.submit(class_='btn btn-primary') }}
   </form>

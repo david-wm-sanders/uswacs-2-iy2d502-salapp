@@ -1,3 +1,3 @@
 FLASK_APP=salapp.py
 FLASK_ENV=development
-SECRET_KEY=for development via flask run only; in production, this will be set differently
+RECAPTCHA_PUBLIC_KEY=6LcJ9IYUAAAAAFs2xAJ9XeoO0hWqZSn2_SFTcvf9
