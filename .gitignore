@@ -6,3 +6,6 @@ venv/
 # This exclusion will prevent aforementioned private variables from ending up in public repos!
 # Ref: http://flask.pocoo.org/docs/1.0/cli/#environment-variables-from-dotenv
 .env
+
+# Exclude development app.db
+app.db
