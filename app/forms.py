@@ -4,6 +4,7 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email
 
 class QuoteForm(FlaskForm):
+    # TODO: Add more validation, such as length checking (ideally with lens pulled from Quote model for SRP)
     email = StringField("Email", validators=[DataRequired(), Email()])
     # password = PasswordField("Password:", validators=[DataRequired()])
     forename = StringField("Forename", validators=[DataRequired()])
