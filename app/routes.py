@@ -11,11 +11,7 @@ from app.models import Quote
 def index():
     # Demonstrate app logging
     app.logger.info(f"Request received for '/'!")
-    # TODO: Make beautiful index page or just redirect to url_for('get_a_quote') automatically
-    user = {"username": "dwms"}
-    quotes = [{"email": "d@w.local", "forename": "D", "surname": "W"},
-              {"email": "m@s.local", "forename": "M", "surname": "S"}]
-    return render_template("index.html", user=user, quotes=quotes)
+    return render_template("index.html")
 
 @app.route("/get-a-quote", methods=["GET", "POST"])
 def get_a_quote():
@@ -60,4 +56,4 @@ def get_a_quote():
 @app.route("/about")
 def about():
     text = "Under construction by dwms" if app.debug else "Constructed by dwms"
-    return render_template("about.html", text=text)
+    return render_template("about.html", title="About!", text=text)

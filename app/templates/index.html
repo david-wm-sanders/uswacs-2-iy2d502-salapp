@@ -1,8 +1,9 @@
 {% extends "_site.html" %}
 
 {% block content %}
-  <h1 class="display-4">Hello {{ user.username }}!</h1>
-  {% for quote in quotes %}
-  <div><p>{{ quote.forename }} {{ quote.surname }} [{{ quote.email }}]</p></div>
-  {% endfor %}
+  <div class="row justify-content-md-center align-items-center h-100">
+    <div class="col-md-6 justify-content-md-center">
+      <a href="{{ url_for('get_a_quote') }}" class="btn btn-primary btn-lg btn-block active" style="font-size: 500%">Get a Quote!</a>
+    </div>
+  </div>
 {% endblock %}

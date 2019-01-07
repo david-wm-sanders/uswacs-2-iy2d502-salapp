@@ -14,8 +14,8 @@
       <title>SalApp</title>
     {% endif %}
   </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <body style="height:100vh;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <!-- <a class="navbar-brand" href="/index">SalApp</a> -->
       <div class="navbar-nav">
         <a class="nav-item nav-link" href="{{ url_for('index') }}">SalApp</a>
@@ -25,7 +25,7 @@
         <a class="nav-item nav-link" href="{{ url_for('about') }}">About</a>
       </div>
     </nav>
-    <div class="container-fluid">
+    <div class="container-fluid h-100">
       {% block content %}{% endblock %}
     </div>
 
