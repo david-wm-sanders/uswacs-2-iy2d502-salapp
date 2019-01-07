@@ -29,12 +29,14 @@ def get_a_quote():
         if last_quote:
             # Calculate the time difference between now and the last quote
             last_quote_timedelta = dt.utcnow() - last_quote._datetime
-            if last_quote_timedelta < timedelta(seconds=10):
+            if last_quote_timedelta < timedelta(seconds=5):
                 # Rate limit the quote request: flash rate limit warning and return the form unsubmitted
                 flash("Quote request not added to database: rate-limited for attempting " \
-                      f"to request a quote within 10 seconds of the last request at {last_quote._datetime}")
+                      f"to request a quote within 5 seconds of the last request at {last_quote._datetime}")
                 return render_template("get_quote.html", title="Get a Quote!", form=form)
-            if quotes_for_email.count() >= 5:
+            # Get the count of previous quotes for email
+            quotes_count = quotes_for_email.count()
+            if quotes_count >= 5:
                 # Log a warning that this email has made quotes_count previous quote requests
                 app.logger.warning(f"{quotes_count} previous quotes for {form.email.data} at {last_quote._datetime}")
 
