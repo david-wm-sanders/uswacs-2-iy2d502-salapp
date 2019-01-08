@@ -1,9 +1,11 @@
 {% extends "_site.html" %}
 
 {% block content %}
-  <div class="row justify-content-md-center align-items-center h-100">
-    <div class="col-md-6 justify-content-md-center">
-      <a href="{{ url_for('get_a_quote') }}" class="btn btn-primary btn-lg btn-block active" style="font-size: 500%">Get a Quote!</a>
+  <div class="container-fluid h-100">
+    <div class="row justify-content-md-center align-items-center h-100">
+      <div class="col-md-6 justify-content-md-center">
+        <a href="{{ url_for('get_a_quote') }}" class="btn btn-primary btn-lg btn-block active" style="font-size: 500%">Get a Quote!</a>
+      </div>
     </div>
   </div>
 {% endblock %}

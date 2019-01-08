@@ -14,7 +14,7 @@
       <title>SalApp</title>
     {% endif %}
   </head>
-  <body style="height:100vh;">
+  <body style="height: 100vh;">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <!-- <a class="navbar-brand" href="/index">SalApp</a> -->
       <div class="navbar-nav">
@@ -25,9 +25,7 @@
         <a class="nav-item nav-link" href="{{ url_for('about') }}">About</a>
       </div>
     </nav>
-    <div class="container-fluid h-100">
-      {% block content %}{% endblock %}
-    </div>
+    {% block content %}{% endblock %}
 
     <!-- JS required for Bootstrap functionality -->
     <!-- Security considerations: check the integrity of the scripts using the "integrity" attribute and set the "crossorigin" attribute to "anonymous" to prevent cross-origin data leaks -->
