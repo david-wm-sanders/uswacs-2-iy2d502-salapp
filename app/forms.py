@@ -8,6 +8,7 @@ from app.models import Quote
 
 class QuoteForm(FlaskForm):
     # Define internal variables that grab the column length from the Quote model
+    # Figure out a way to refactor this - try to subclass FlaskForm perhaps?
     _maxlen_email = Quote.email.property.columns[0].type.length
     _maxlen_forename = Quote.forename.property.columns[0].type.length
     _maxlen_surname = Quote.surname.property.columns[0].type.length
@@ -18,7 +19,12 @@ class QuoteForm(FlaskForm):
     _maxlen_town = Quote.town.property.columns[0].type.length
     _maxlen_postcode = Quote.postcode.property.columns[0].type.length
 
+    # TODO: Add better ALERT (warning) logging on validation failure, currently handled in route
+    # TODO: SQL injection check - validate for possible SQL injection strings, ALERT, and reject with funny message
+    # TODO: Password complexity and (basic) not in wordlist validation for relevant forms
+
     # Define form fields
+    # TODO: Derive custom LengthedStringField that adds length validation and sets HTML maxlength attribute
     email = StringField("Email", validators=[DataRequired(), Email(), Length(max=_maxlen_email)],
                         render_kw={"maxlength": _maxlen_email})
     forename = StringField("Forename", validators=[DataRequired(), Length(max=_maxlen_forename)],
