@@ -3,7 +3,7 @@
 {% block content %}
   <div class="container-fluid h-100" style="padding-top: 100px;">
     <div class="row justify-content-md-center h-100">
-      <div class="col-md-3 justify-content-md-center">
+      <div class="col-md-5 justify-content-md-center">
         <!-- DEBUG: include novalidate for the purpose of testing server-side validation -->
         <!-- TODO: PRODUCTION_ALERT: remove novalidate -->
         <form action="" method="POST" novalidate>
@@ -34,25 +34,6 @@
             <div class="form-group col-md-6">{{ form.postcode.label }}: {{ form.postcode(class_='form-control') }}</div>
             <div class="form-group col-md-6">{{ form.telephone.label }}: {{ form.telephone(class_='form-control') }}</div>
           </div>
-          <hr/>
-          <div class="form-row">
-            <div class="form-group col-md-12">
-              <!-- Display server-side form validation error messages -->
-              {% if form.errors %}
-                <ul>
-                {% for field, errors in form.errors.items() %}
-                  {% if field == "recaptcha" %}
-                    <li>reCAPTCHA: {{ ' '.join(errors) }}</li>
-                  {% else %}
-                    <li>{{ form[field].label }}: {{ ' '.join(errors) }}</li>
-                  {% endif %}
-                {% endfor %}
-                </ul>
-              {% else %}
-                <p>No server-side validation error messages.</p>
-              {% endif %}
-            </div>
-          </div>
           <div class="form-row">
             <div class="form-group col-md-12">
               <!-- Display the reCAPTCHA -->
@@ -62,24 +43,49 @@
           <div class="form-row">
             <div class="form-group col-md-12">
               <!-- Display the submit button -->
-              {{ form.submit(class_='btn btn-primary') }}
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-12">
-              <!-- Display flashed messages -->
-              {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                  {% for message in messages %}
-                    <div>{{ message }}</div>
-                  {% endfor %}
-                {% else %}
-                  <div>No flashed messages.</div>
-                {% endif %}
-              {% endwith %}
+              {{ form.submit(class_='btn btn-primary btn-lg btn-block active') }}
             </div>
           </div>
         </form>
+      </div>
+      <div class="col-md-1 justify-content-md-center">
+        <div style="border-left: 2px dashed silver; height: 100%; position: absolute; left: 50%; margin-left: -1px; top: 0;"></div>
+      </div>
+      <div class="col-md-5 justify-content-md-center">
+        <div class="row">
+          <div class="col-md-12">
+            <p style="text-decoration: underline">Validation:</p>
+            <!-- Display server-side form validation error messages -->
+            {% if form.errors %}
+              <ul style="list-style: inside; padding-left: 0">
+              {% for field, errors in form.errors.items() %}
+                {% if field == "recaptcha" %}
+                  <li class="text-danger">reCAPTCHA: {{ ' '.join(errors) }}</li>
+                {% else %}
+                  <li class="text-danger">{{ form[field].label }}: {{ ' '.join(errors) }}</li>
+                {% endif %}
+              {% endfor %}
+              </ul>
+            {% else %}
+              <p>No server-side validation error messages.</p>
+            {% endif %}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <p style="text-decoration: underline">Flashed messages:</p>
+            <!-- Display flashed messages -->
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                {% for message in messages %}
+                  <div>{{ message }}</div>
+                {% endfor %}
+              {% else %}
+                <div>No flashed messages.</div>
+              {% endif %}
+            {% endwith %}
+          </div>
+        </div>
       </div>
     </div>
   </div>
