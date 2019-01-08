@@ -1,7 +1,7 @@
 from datetime import datetime as dt
 from datetime import timedelta
 
-from flask import request, render_template, url_for, flash, redirect
+from flask import request, render_template, url_for, flash, redirect, abort
 from app import app, db
 from app.forms import QuoteForm
 from app.models import Quote
@@ -57,3 +57,11 @@ def get_a_quote():
 def about():
     text = "Under construction by dwms" if app.debug else "Constructed by dwms"
     return render_template("about.html", title="About!", text=text)
+
+@app.route("/_test_404")
+def _test_404():
+    abort(404)
+
+@app.route("/_test_500")
+def _test_500():
+    abort(500)
