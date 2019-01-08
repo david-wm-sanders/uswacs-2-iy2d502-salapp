@@ -1,20 +1,42 @@
 from flask_wtf import FlaskForm
 from flask_wtf.recaptcha import RecaptchaField
 from wtforms import StringField, PasswordField, SubmitField, HiddenField
-from wtforms.validators import DataRequired, Email
+from wtforms.validators import DataRequired, Length, Email
+
+from app.models import Quote
+
 
 class QuoteForm(FlaskForm):
-    # TODO: Add more validation, such as length checking (ideally with lens pulled from Quote model for SRP)
-    email = StringField("Email", validators=[DataRequired(), Email()])
-    # password = PasswordField("Password:", validators=[DataRequired()])
-    forename = StringField("Forename", validators=[DataRequired()])
-    surname = StringField("Surname", validators=[DataRequired()])
-    telephone = StringField("Telephone", validators=[DataRequired()])
-    account_number = StringField("Account Number", validators=[DataRequired()])
-    sort_code = StringField("Sort Code", validators=[DataRequired()])
-    address = StringField("Address", validators=[DataRequired()])
-    town = StringField("Town", validators=[DataRequired()])
-    postcode = StringField("Postcode", validators=[DataRequired()])
+    # Define internal variables that grab the column length from the Quote model
+    _maxlen_email = Quote.email.property.columns[0].type.length
+    _maxlen_forename = Quote.forename.property.columns[0].type.length
+    _maxlen_surname = Quote.surname.property.columns[0].type.length
+    _maxlen_telephone = Quote.telephone.property.columns[0].type.length
+    _maxlen_account_number = Quote.account_number.property.columns[0].type.length
+    _maxlen_sort_code = Quote.sort_code.property.columns[0].type.length
+    _maxlen_address = Quote.address.property.columns[0].type.length
+    _maxlen_town = Quote.town.property.columns[0].type.length
+    _maxlen_postcode = Quote.postcode.property.columns[0].type.length
+
+    # Define form fields
+    email = StringField("Email", validators=[DataRequired(), Email(), Length(max=_maxlen_email)],
+                        render_kw={"maxlength": _maxlen_email})
+    forename = StringField("Forename", validators=[DataRequired(), Length(max=_maxlen_forename)],
+                        render_kw={"maxlength": _maxlen_forename})
+    surname = StringField("Surname", validators=[DataRequired(), Length(max=_maxlen_surname)],
+                        render_kw={"maxlength": _maxlen_surname})
+    telephone = StringField("Telephone", validators=[DataRequired(), Length(max=_maxlen_telephone)],
+                        render_kw={"maxlength": _maxlen_telephone})
+    account_number = StringField("Account Number", validators=[DataRequired(), Length(max=_maxlen_account_number)],
+                        render_kw={"maxlength": _maxlen_account_number})
+    sort_code = StringField("Sort Code", validators=[DataRequired(), Length(max=_maxlen_sort_code)],
+                        render_kw={"maxlength": _maxlen_sort_code})
+    address = StringField("Address", validators=[DataRequired(), Length(max=_maxlen_address)],
+                        render_kw={"maxlength": _maxlen_address})
+    town = StringField("Town", validators=[DataRequired(), Length(max=_maxlen_town)],
+                        render_kw={"maxlength": _maxlen_town})
+    postcode = StringField("Postcode", validators=[DataRequired(), Length(max=_maxlen_postcode)],
+                        render_kw={"maxlength": _maxlen_postcode})
     # DEBUG: disable recaptcha for development and testing, use a HiddenField to represent it in the template
     # recaptcha = RecaptchaField()
     recaptcha = HiddenField()
