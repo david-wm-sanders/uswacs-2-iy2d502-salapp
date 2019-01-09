@@ -29,7 +29,7 @@ def get_a_quote():
             last_quote_timedelta = dt.utcnow() - last_quote._datetime
             if last_quote_timedelta < timedelta(seconds=5):
                 # Rate limit the quote request: flash rate limit warning and return the form unsubmitted
-                flash("Quote request not added to database: rate-limited for attempting " \
+                flash("Quote request not added to database: rate-limited for attempting "
                       f"to request a quote within 5 seconds of the last request at {last_quote._datetime}")
                 return render_template("get_quote.html", title="Get a Quote!", form=form)
             # Get the count of previous quotes for email
@@ -50,7 +50,7 @@ def get_a_quote():
         # TODO: Implement a thanks page
         # return redirect(url_for("thanks"))
     elif form.is_submitted():
-        app.logger.warning(f"{type(form).__name__} validation failure by " \
+        app.logger.warning(f"{type(form).__name__} validation failure by "
                            f"{request.remote_addr} with {request.user_agent}: {form.errors}")
 
     return render_template("get_quote.html", title="Get a Quote!", form=form)
