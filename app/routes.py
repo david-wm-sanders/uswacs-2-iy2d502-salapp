@@ -1,7 +1,7 @@
 from datetime import datetime as dt
 from datetime import timedelta
 
-from flask import request, render_template, url_for, flash, redirect, abort
+from flask import request, session, render_template, url_for, flash, redirect, abort
 from app import app, db
 from app.forms import QuoteForm
 from app.models import Quote
@@ -46,14 +46,26 @@ def get_a_quote():
         db.session.add(quote)
         db.session.commit()
         flash("Quote request added to database!")
-        # TODO: Set information in session
-        # TODO: Implement a thanks page
-        # return redirect(url_for("thanks"))
+        # Set information in session and goto thanks
+        session["email"] = form.email.data
+        session["forename"] = form.forename.data
+        return redirect(url_for("thanks"))
     elif form.is_submitted():
         app.logger.warning(f"{type(form).__name__} validation failure by "
                            f"{request.remote_addr} with {request.user_agent}: {form.errors}")
 
     return render_template("get_quote.html", title="Get a Quote!", form=form)
+
+
+@app.route("/thanks")
+def thanks():
+    if "email" in session and "forename" in session:
+        email, forename = session["email"], session["forename"]
+        main = f"Thanks {forename}!"
+        small = f"Quote request received! We'll send an email to {email} after we have reviewed your quote request!"
+        return render_template("200.html", main=main, small=small)
+    # TODO: abort to 410 GONE with explanation that the email and forename are no longer in session - cookies deleted?
+    abort(404)
 
 
 @app.route("/about")
