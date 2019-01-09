@@ -19,6 +19,7 @@ def index():
 def get_a_quote():
     form = QuoteForm()
     if form.validate_on_submit():
+        # TODO: Mod to operate on sessions
         # Security consideration: rate limiting implementation
         # Filter quotes by email address specified in the form
         quotes_for_email = Quote.query.filter_by(email=form.email.data)
@@ -81,4 +82,5 @@ def _test_404():
 
 @app.route("/_test_500")
 def _test_500():
-    abort(500)
+    # TODO: test this with production app
+    abort(500) if app.debug else abort(404)
