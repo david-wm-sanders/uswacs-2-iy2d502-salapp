@@ -7,6 +7,7 @@ app_dir = pathlib.Path(__file__).parent
 class ConfigurationError(Exception):
     pass
 
+
 class Config:
     """Configure Flask app variables
 
@@ -30,7 +31,7 @@ class Config:
 
     # Load DATABASE_URI from environment or use a sqlite db if environment variable is not set
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URI") or \
-                                f"sqlite:///{app_dir / 'app.db'}"
+        f"sqlite:///{app_dir / 'app.db'}"
 
     # Disable app signalling on db changes
     SQLALCHEMY_TRACK_MODIFICATIONS = False

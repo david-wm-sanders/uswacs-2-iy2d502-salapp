@@ -28,21 +28,21 @@ class QuoteForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired(), Email(), Length(max=_maxlen_email)],
                         render_kw={"maxlength": _maxlen_email})
     forename = StringField("Forename", validators=[DataRequired(), Length(max=_maxlen_forename)],
-                        render_kw={"maxlength": _maxlen_forename})
+                           render_kw={"maxlength": _maxlen_forename})
     surname = StringField("Surname", validators=[DataRequired(), Length(max=_maxlen_surname)],
-                        render_kw={"maxlength": _maxlen_surname})
+                          render_kw={"maxlength": _maxlen_surname})
     telephone = StringField("Telephone", validators=[DataRequired(), Length(max=_maxlen_telephone)],
-                        render_kw={"maxlength": _maxlen_telephone})
+                            render_kw={"maxlength": _maxlen_telephone})
     account_number = StringField("Account Number", validators=[DataRequired(), Length(max=_maxlen_account_number)],
-                        render_kw={"maxlength": _maxlen_account_number})
+                                 render_kw={"maxlength": _maxlen_account_number})
     sort_code = StringField("Sort Code", validators=[DataRequired(), Length(max=_maxlen_sort_code)],
-                        render_kw={"maxlength": _maxlen_sort_code})
+                            render_kw={"maxlength": _maxlen_sort_code})
     address = StringField("Address", validators=[DataRequired(), Length(max=_maxlen_address)],
-                        render_kw={"maxlength": _maxlen_address})
+                          render_kw={"maxlength": _maxlen_address})
     town = StringField("Town", validators=[DataRequired(), Length(max=_maxlen_town)],
-                        render_kw={"maxlength": _maxlen_town})
+                       render_kw={"maxlength": _maxlen_town})
     postcode = StringField("Postcode", validators=[DataRequired(), Length(max=_maxlen_postcode)],
-                        render_kw={"maxlength": _maxlen_postcode})
+                           render_kw={"maxlength": _maxlen_postcode})
     # DEBUG: disable recaptcha for development and testing, use a HiddenField to represent it in the template
     # recaptcha = RecaptchaField()
     recaptcha = HiddenField()

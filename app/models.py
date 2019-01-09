@@ -1,5 +1,6 @@
 from app import db
 
+
 class Quote(db.Model):
     __tablename__ = "quotes"
     _id = db.Column("id", db.Integer, primary_key=True)

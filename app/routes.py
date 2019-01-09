@@ -6,12 +6,14 @@ from app import app, db
 from app.forms import QuoteForm
 from app.models import Quote
 
+
 @app.route("/")
 @app.route("/index")
 def index():
     # Demonstrate app logging
     app.logger.info(f"Request received for '/'!")
     return render_template("index.html")
+
 
 @app.route("/get-a-quote", methods=["GET", "POST"])
 def get_a_quote():
@@ -53,14 +55,17 @@ def get_a_quote():
 
     return render_template("get_quote.html", title="Get a Quote!", form=form)
 
+
 @app.route("/about")
 def about():
     text = "Under construction by dwms" if app.debug else "Constructed by dwms"
     return render_template("about.html", title="About!", text=text)
 
+
 @app.route("/_test_404")
 def _test_404():
     abort(404)
+
 
 @app.route("/_test_500")
 def _test_500():
