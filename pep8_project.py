@@ -2,41 +2,54 @@
 """pep8_project.py
 
 Usage:
-    pep8_project.py [-c|-s|-r|-f]
+    pep8_project.py [-c|-s|-r|-f] [-v]
 
 Options:
     -c      Count infractions
     -s      Show source for infractions
     -r      Show source for infractions and compliance sample
     -f      Show first infractions
+
+    -v      Show verbose infraction detail
 """
+import itertools
+import platform
 import subprocess
 from pathlib import Path
 
 from docopt import docopt
 
-# TODO: Make cross-platform
 # TODO: If no venv: make venv and just install pycodestyle
 
 path_here = Path(__file__).parent / Path(".")
 
+
+def pycodestyle_path():
+    if platform.system() == "Windows":
+        return path_here / "venv/Scripts/pycodestyle.exe"
+    else:
+        return path_here / "venv/bin/pycodestyle"
+
+
+def make_pycodestyle_command(opts=None, verbose=False):
+    opts = opts if opts else []
+    verbose = ["-v"] if verbose else []
+    return list(itertools.chain([str(pycodestyle_path())], opts, verbose, str(path_here)))
+
+
 args = docopt(__doc__)
 if args["-c"]:
-    subprocess.run(["venv/Scripts/pycodestyle", "--exclude=venv,migrations",
-                    "--statistics", "-qq",
-                    "--max-line-length=119", str(path_here)])
+    cmd = make_pycodestyle_command(["--statistics", "-qq"], verbose=args["-v"])
 elif args["-s"]:
-    subprocess.run(["venv/Scripts/pycodestyle", "--exclude=venv,migrations",
-                    "--show-source",
-                    "--max-line-length=119", str(path_here)])
+    cmd = make_pycodestyle_command(["--show-source"], verbose=args["-v"])
 elif args["-r"]:
-    subprocess.run(["venv/Scripts/pycodestyle", "--exclude=venv,migrations",
-                    "--show-source", "--show-pep8",
-                    "--max-line-length=119", str(path_here)])
+    cmd = make_pycodestyle_command(["--show-source", "--show-pep8"], verbose=args["-v"])
 elif args["-f"]:
-    subprocess.run(["venv/Scripts/pycodestyle", "--exclude=venv,migrations",
-                    "--first",
-                    "--max-line-length=119", str(path_here)])
+    cmd = make_pycodestyle_command(["--first"], verbose=args["-v"])
 else:
-    subprocess.run(["venv/Scripts/pycodestyle", "--exclude=venv,migrations",
-                    "--max-line-length=119", str(path_here)])
+    cmd = make_pycodestyle_command(verbose=args["-v"])
+
+if args["-v"]:
+    print(f"Running {' '.join(arg for arg in cmd)}")
+
+subprocess.run(cmd)
