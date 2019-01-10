@@ -5,9 +5,7 @@
     <div class="row justify-content-md-center h-100">
       <div class="col-md-5 justify-content-md-center">
         <!-- DEBUG: include novalidate for the purpose of testing server-side validation -->
-        {# PRODUCTION_ALERT: remove novalidate #}
-        {# TODO: insert novalidate if app.debug #}
-        <form action="" method="POST" novalidate>
+        <form action="" method="POST" {% if _debugging %}novalidate{% endif %}>
           <!-- Security considerations: Include the form's hidden tags to enable the CSRF protection by including the token in a hidden field -->
           {{ form.hidden_tag() }}
           <div class="form-row">

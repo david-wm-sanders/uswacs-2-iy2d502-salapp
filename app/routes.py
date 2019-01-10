@@ -7,6 +7,11 @@ from app.forms import QuoteForm
 from app.models import Quote
 
 
+@app.context_processor
+def inject_app_debug():
+    return dict(_debugging=app.debug)
+
+
 @app.route("/")
 @app.route("/index")
 def index():
@@ -82,5 +87,4 @@ def _test_404():
 
 @app.route("/_test_500")
 def _test_500():
-    # TODO: test this with production app
     abort(500) if app.debug else abort(404)
