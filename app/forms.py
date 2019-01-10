@@ -12,7 +12,10 @@ class ModelLengthValidator:
     """Validates field length from SQLAlchemy property type length"""
     def __init__(self, model_field, minimum_length=0):
         self._min_length = minimum_length
-        self._max_length = model_field.property.columns[0].type.length
+        try:
+            self._max_length = model_field.property.columns[0].type.length
+        except AttributeError as e:
+            raise Exception("Does this model_field have a length for validation?") from e
 
     def __call__(self, form, field):
         field_data_length = field.data and len(field.data) or 0
