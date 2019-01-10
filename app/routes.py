@@ -1,4 +1,4 @@
-from datetime import datetime as dt
+from datetime import datetime
 from datetime import timedelta
 
 from flask import request, session, render_template, url_for, flash, redirect, abort
@@ -24,35 +24,35 @@ def index():
 def get_a_quote():
     form = QuoteForm()
     if form.validate_on_submit():
-        # TODO: Mod to operate on sessions
+        dt_now = datetime.utcnow()
         # Security consideration: rate limiting implementation
-        # Filter quotes by email address specified in the form
-        quotes_for_email = Quote.query.filter_by(email=form.email.data)
-        # Find the last quote for email address, None if no previous quotes have been requested for the email address
-        last_quote = quotes_for_email.order_by(Quote._datetime.desc()).first()
-        if last_quote:
+        if "last_quote" in session:
             # Calculate the time difference between now and the last quote
-            last_quote_timedelta = dt.utcnow() - last_quote._datetime
-            if last_quote_timedelta < timedelta(seconds=5):
+            last_quote_timedelta = dt_now - session["last_quote"]
+            if last_quote_timedelta < timedelta(seconds=60):
                 # Rate limit the quote request: flash rate limit warning and return the form unsubmitted
                 flash("Quote request not added to database: rate-limited for attempting "
-                      f"to request a quote within 5 seconds of the last request at {last_quote._datetime}")
+                      f"to request a quote within 1 minute of the last request at {session['last_quote']}.")
                 return render_template("get_quote.html", title="Get a Quote!", form=form)
-            # Get the count of previous quotes for email
-            quotes_count = quotes_for_email.count()
-            if quotes_count >= 5:
-                # Log a warning that this email has made quotes_count previous quote requests
-                app.logger.warning(f"{quotes_count} previous quotes for {form.email.data} at {last_quote._datetime}")
+
+        # Filter quotes by email address specified in the form
+        quotes_for_email = Quote.query.filter_by(email=form.email.data)
+        # Get the count of previous quotes for email
+        quotes_count = quotes_for_email.count()
+        if quotes_count >= 5:
+            # Log a warning that this email has made quotes_count previous quote requests
+            app.logger.warning(f"{quotes_count} previous quotes for {form.email.data} at {last_quote._datetime}")
 
         quote = Quote(email=form.email.data,
                       forename=form.forename.data, surname=form.surname.data, telephone=form.telephone.data,
                       account_number=form.account_number.data, sort_code=form.sort_code.data,
                       address=form.address.data, town=form.town.data, postcode=form.postcode.data,
-                      _datetime=dt.utcnow())
+                      _datetime=dt_now)
         db.session.add(quote)
         db.session.commit()
         flash("Quote request added to database!")
         # Set information in session and goto thanks
+        session["last_quote"] = dt_now
         session["email"] = form.email.data
         session["forename"] = form.forename.data
         return redirect(url_for("thanks"))
