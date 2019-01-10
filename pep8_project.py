@@ -26,15 +26,15 @@ path_here = Path(__file__).parent / Path(".")
 
 def pycodestyle_path():
     if platform.system() == "Windows":
-        return path_here / "venv/Scripts/pycodestyle.exe"
+        return [str(path_here / "venv/Scripts/pycodestyle.exe")]
     else:
-        return path_here / "venv/bin/pycodestyle"
+        return [str(path_here / "venv/bin/pycodestyle")]
 
 
 def make_pycodestyle_command(opts=None, verbose=False):
     opts = opts if opts else []
     verbose = ["-v"] if verbose else []
-    return list(itertools.chain([str(pycodestyle_path())], opts, verbose, str(path_here)))
+    return list(itertools.chain(pycodestyle_path(), opts, verbose, str(path_here)))
 
 
 args = docopt(__doc__)
