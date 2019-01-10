@@ -70,8 +70,8 @@ def thanks():
         main = f"Thanks {forename}!"
         small = f"Quote request received! We'll send an email to {email} after we have reviewed your quote request!"
         return render_template("200.html", main=main, small=small)
-    # TODO: abort to 410 GONE with explanation that the email and forename are no longer in session - cookies deleted?
-    abort(404)
+    # Abort to 410 GONE with explanation that the session is gone (cookies probably rejected or deleted)
+    abort(410)
 
 
 @app.route("/about")
