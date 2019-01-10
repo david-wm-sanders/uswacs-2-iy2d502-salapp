@@ -15,7 +15,8 @@ class ModelLengthValidator:
         try:
             self._max_length = model_field.property.columns[0].type.length
         except AttributeError as e:
-            raise Exception("Does this model_field have a length for validation?") from e
+            raise Exception(f"{model_field.property} [{model_field.property.columns[0].type}] "
+                            "has no length to validate") from e
 
     def __call__(self, form, field):
         field_data_length = field.data and len(field.data) or 0
