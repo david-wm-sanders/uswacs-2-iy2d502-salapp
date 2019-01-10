@@ -10,3 +10,5 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 from app import routes, models, errors
+
+# TODO: document app with proper docstrings

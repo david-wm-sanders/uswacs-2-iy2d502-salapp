@@ -57,8 +57,8 @@ def get_a_quote():
         session["forename"] = form.forename.data
         return redirect(url_for("thanks"))
     elif form.is_submitted():
-        app.logger.warning(f"{type(form).__name__} validation failure by "
-                           f"{request.remote_addr} with {request.user_agent}: {form.errors}")
+        app.logger.info(f"{type(form).__name__} validation failure by "
+                        f"{request.remote_addr} with {request.user_agent}: {form.errors}")
 
     return render_template("get_quote.html", title="Get a Quote!", form=form)
 
