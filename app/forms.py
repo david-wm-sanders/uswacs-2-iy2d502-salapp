@@ -103,7 +103,6 @@ class QuoteForm(FlaskForm):
     postcode = ModelStringField("Postcode", validators=[DataRequired(), ModelLengthValidator(Quote.postcode),
                                                         SqlInjectionValidator()],
                                 model_field=Quote.postcode)
-    # DEBUG: disable recaptcha for development and testing, use a HiddenField to represent it in the template
-    # recaptcha = RecaptchaField()
-    recaptcha = HiddenField()
+    # Use a HiddenField if app running in dev mode (to reduce spurious requests), else insert a reCAPTCHA into the form
+    recaptcha = HiddenField() if app.debug else RecaptchaField()
     submit = SubmitField("Request Quote!")
