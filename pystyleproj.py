@@ -1,5 +1,5 @@
 #!venv/bin/python3
-"""pystyleproj.py
+"""Checks project for pycodestyle and pydocstyle infractions.
 
 Usage:
     pystyle_proj.py [-c|-s|-r|-f] [-d] [-v]
@@ -27,12 +27,14 @@ path_here = Path(__file__).parent / Path(".")
 
 
 def pyxstyle_path(x, venv_dir="venv"):
+    """Calculate the path to py{x}style in the venv directory relative to project root."""
     extension = ".exe" if platform.system() == "Windows" else ""
     bin_dir = "Scripts" if platform.system() == "Windows" else "bin"
     return [str(path_here / f"{venv_dir}/{bin_dir}/py{x}style{extension}")]
 
 
 def make_pyxstyle_command(x, p, opts=None, verbose=False):
+    """Calculate the py{x}style command required to elicit behaviour desired by opts."""
     opts = opts if opts else []
     verbose = ["-v"] if verbose else []
     return list(itertools.chain(pyxstyle_path(x), opts, verbose, [str(p)]))
@@ -74,4 +76,3 @@ for cmd in cmds:
     if args["-v"]:
         print(f"Running {' '.join(arg for arg in cmd)}")
     subprocess.run(cmd)
-    print()
