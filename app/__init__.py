@@ -1,3 +1,4 @@
+"""Flask salapp."""
 from flask import Flask
 from .config import Config
 
@@ -11,4 +12,4 @@ migrate = Migrate(app, db)
 
 from app import routes, models, errors
 
-# TODO: document app with proper docstrings
+# TODO: improve app with better comments and parameter hints in docstrings

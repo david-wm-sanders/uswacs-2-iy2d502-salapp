@@ -1,3 +1,4 @@
+"""Define forms for salapp."""
 from flask import request
 from flask_wtf import FlaskForm
 from flask_wtf.recaptcha import RecaptchaField
@@ -10,8 +11,10 @@ from app.models import Quote
 
 
 class ModelLengthValidator:
-    """Validates field length from SQLAlchemy property type length"""
+    """Validates field length from SQLAlchemy property type length."""
+
     def __init__(self, model_field, minimum_length=0):
+        """Initialise a ModelLengthValidator to check length for model_field."""
         self._min_length = minimum_length
         try:
             self._max_length = model_field.property.columns[0].type.length
@@ -20,6 +23,7 @@ class ModelLengthValidator:
             raise Exception(f"{n} [{t}] has no length to validate") from e
 
     def __call__(self, form, field):
+        """Validate that the data from form field meets length constraints set by model."""
         field_data_length = field.data and len(field.data) or 0
         if field_data_length < self._min_length:
             return ValidationError(f"Field cannot be less than {self._min_length} characters long.")
@@ -28,22 +32,30 @@ class ModelLengthValidator:
 
 
 class ModelStringField(StringField):
+    """Subclasses wtforms.StringField to set html input maxlength attribute dynamically."""
+
     def __init__(self, label="", validators=None, model_field=None, **kwargs):
+        """Initialise a ModelStringField with the default StringField argument and additional model_field argument."""
         self._max_length = model_field.property.columns[0].type.length
         super(StringField, self).__init__(label, validators, **kwargs)
 
     def __call__(self, **kwargs):
+        """Insert the 'maxlength' attribute into the input html tag and pass back to super.__call__."""
         if "maxlength" not in kwargs:
             kwargs["maxlength"] = self._max_length
         return super(StringField, self).__call__(**kwargs)
 
 
 class SqlInjectionValidator:
+    """Validate field for possible SQL Injection terms."""
+
     def __init__(self, log_only=False):
+        """Initialise SqlInjectionValidator to check for possible SQL Injection terms."""
         self._log_only = log_only
         self._possible_sql_terms = ["--", "'", "=", "*", "/*", "*/", "DROP", "SELECT", "FROM", "WHERE"]
 
     def __call__(self, form, field):
+        """Validate that the field data does not contain possible SQL Injection terms."""
         flagged = []
         for word in field.data.split(" "):
             for term in self._possible_sql_terms:
@@ -57,6 +69,8 @@ class SqlInjectionValidator:
 
 
 class QuoteForm(FlaskForm):
+    """Define a FlaskForm that handles quote requests."""
+
     # TODO: Password complexity and (basic) not in wordlist validation for relevant forms
     # TODO: Convert to WTForms-Alchemy eventually...
 

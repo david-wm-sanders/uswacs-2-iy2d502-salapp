@@ -1,3 +1,4 @@
+"""Define routes for salapp."""
 from datetime import datetime
 from datetime import timedelta
 
@@ -9,12 +10,14 @@ from app.models import Quote
 
 @app.context_processor
 def inject_app_debug():
+    """Inject the _debugging property in jinja templates."""
     return dict(_debugging=app.debug)
 
 
 @app.route("/")
 @app.route("/index")
 def index():
+    """Return rendered template for '/index'."""
     # Demonstrate app logging
     app.logger.info(f"Request received for '/'!")
     return render_template("index.html")
@@ -22,6 +25,7 @@ def index():
 
 @app.route("/get-a-quote", methods=["GET", "POST"])
 def get_a_quote():
+    """Return rendered template for '/get-a-quote' if GET and handle QuoteForm POST."""
     form = QuoteForm()
     if form.validate_on_submit():
         dt_now = datetime.utcnow()
@@ -65,6 +69,7 @@ def get_a_quote():
 
 @app.route("/thanks")
 def thanks():
+    """Return rendered template for '/thanks' if email and forename in session else abort(410)."""
     if "email" in session and "forename" in session:
         email, forename = session["email"], session["forename"]
         main = f"Thanks {forename}!"
@@ -76,6 +81,7 @@ def thanks():
 
 @app.route("/about")
 def about():
+    """Return rendered template for '/about'."""
     text = "Under construction by dwms" if app.debug else "Constructed by dwms"
     return render_template("about.html", title="About!", text=text)
 

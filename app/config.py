@@ -1,3 +1,4 @@
+"""Handles configuration from environment variables for salapp."""
 import os
 import pathlib
 
@@ -5,14 +6,17 @@ app_dir = pathlib.Path(__file__).parent
 
 
 class ConfigurationError(Exception):
+    """Exception raised if a variable was required and not in environment."""
+
     pass
 
 
 class Config:
-    """Configure Flask app variables
+    """Configure Flask app variables from environment.
 
     Security consideration: fail fast with ConfigurationError if variable not set by default
     """
+
     # TODO: mod to make using the object in `app.config.from_object(Config)` do the check for object is not None
     # Load app SECRET_KEY so that tools, such as CSRF protection, are usable
     SECRET_KEY = os.environ.get("SECRET_KEY")

@@ -1,7 +1,10 @@
+"""Define models for salapp."""
 from app import db
 
 
 class Quote(db.Model):
+    """Defines a Quote, as stored in the database, with declarative SQLAlchemy."""
+
     __tablename__ = "quotes"
     _id = db.Column("id", db.Integer, primary_key=True)
     # From https://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address/574698#574698
@@ -17,4 +20,5 @@ class Quote(db.Model):
     _datetime = db.Column(db.DateTime, nullable=False)
 
     def __repr__(self):
-        return f"<Quote {self._id}>"
+        """Return a basic representation of a Quote."""
+        return f"<Quote {self._id} @ {self._datetime}>"
