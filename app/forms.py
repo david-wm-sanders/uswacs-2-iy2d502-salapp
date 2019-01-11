@@ -53,7 +53,7 @@ class SqlInjectionValidator:
                             f"{request.remote_addr} with {request.user_agent}: possible SQL injection terms "
                             f"in '{field.name}': {field.data}")
             if not self._log_only:
-                raise ValidationError(f"SQL injection terms '{flagged}' not permitted.")
+                raise ValidationError(f"SQL injection terms {flagged} not permitted.")
 
 
 class QuoteForm(FlaskForm):
