@@ -12,4 +12,5 @@ migrate = Migrate(app, db)
 
 from app import routes, models, errors
 
+# TODO: add Content-Security-Policy and Content-Security-Policy-Report-Only headers
 # TODO: improve app with better comments and parameter hints in docstrings
