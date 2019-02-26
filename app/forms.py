@@ -75,33 +75,50 @@ class QuoteForm(FlaskForm):
     # TODO: Convert to WTForms-Alchemy eventually...
 
     # Define form fields
-    email = ModelStringField("Email", validators=[DataRequired(), Email(), ModelLengthValidator(Quote.email),
-                                                  SqlInjectionValidator()],
+    email = ModelStringField("Email",
+                             validators=[DataRequired(), Email(),
+                                         ModelLengthValidator(Quote.email),
+                                         SqlInjectionValidator()],
                              model_field=Quote.email)
-    forename = ModelStringField("Forename", validators=[DataRequired(), ModelLengthValidator(Quote.forename),
-                                                        SqlInjectionValidator()],
+    forename = ModelStringField("Forename",
+                                validators=[DataRequired(),
+                                            ModelLengthValidator(Quote.forename),
+                                            SqlInjectionValidator()],
                                 model_field=Quote.forename)
-    surname = ModelStringField("Surname", validators=[DataRequired(), ModelLengthValidator(Quote.surname),
-                                                      SqlInjectionValidator()],
+    surname = ModelStringField("Surname",
+                               validators=[DataRequired(),
+                                           ModelLengthValidator(Quote.surname),
+                                           SqlInjectionValidator()],
                                model_field=Quote.surname)
-    telephone = ModelStringField("Telephone", validators=[DataRequired(), ModelLengthValidator(Quote.telephone),
-                                                          SqlInjectionValidator()],
+    telephone = ModelStringField("Telephone",
+                                 validators=[DataRequired(),
+                                             ModelLengthValidator(Quote.telephone),
+                                             SqlInjectionValidator()],
                                  model_field=Quote.telephone)
-    account_number = ModelStringField("Account Number", validators=[DataRequired(),
-                                                                    ModelLengthValidator(Quote.account_number),
-                                                                    SqlInjectionValidator()],
+    account_number = ModelStringField("Account Number",
+                                      validators=[DataRequired(),
+                                                  ModelLengthValidator(Quote.account_number),
+                                                  SqlInjectionValidator()],
                                       model_field=Quote.account_number)
-    sort_code = ModelStringField("Sort Code", validators=[DataRequired(), ModelLengthValidator(Quote.sort_code),
-                                                          SqlInjectionValidator()],
+    sort_code = ModelStringField("Sort Code",
+                                 validators=[DataRequired(),
+                                             ModelLengthValidator(Quote.sort_code),
+                                             SqlInjectionValidator()],
                                  model_field=Quote.sort_code)
-    address = ModelStringField("Address", validators=[DataRequired(), ModelLengthValidator(Quote.address),
-                                                      SqlInjectionValidator()],
+    address = ModelStringField("Address",
+                               validators=[DataRequired(),
+                                           ModelLengthValidator(Quote.address),
+                                           SqlInjectionValidator()],
                                model_field=Quote.address)
-    town = ModelStringField("Town", validators=[DataRequired(), ModelLengthValidator(Quote.town),
-                                                SqlInjectionValidator()],
+    town = ModelStringField("Town",
+                            validators=[DataRequired(),
+                                        ModelLengthValidator(Quote.town),
+                                        SqlInjectionValidator()],
                             model_field=Quote.town)
-    postcode = ModelStringField("Postcode", validators=[DataRequired(), ModelLengthValidator(Quote.postcode),
-                                                        SqlInjectionValidator()],
+    postcode = ModelStringField("Postcode",
+                                validators=[DataRequired(),
+                                            ModelLengthValidator(Quote.postcode),
+                                            SqlInjectionValidator()],
                                 model_field=Quote.postcode)
     # Use a HiddenField if app running in dev mode (to reduce spurious requests), else insert a reCAPTCHA into the form
     recaptcha = HiddenField() if app.debug else RecaptchaField()
