@@ -9,3 +9,6 @@ venv/
 
 # Exclude development app.db
 app.db
+
+# Security consideration: exclude SSL/TLS key files
+*.pem
