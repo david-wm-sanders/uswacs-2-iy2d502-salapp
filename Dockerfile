@@ -1,7 +1,7 @@
-FROM python:3.7-alpine
+FROM python:3.7-slim
 
 # Create salapp user in container
-RUN adduser -D salapp
+RUN useradd -ms /bin/sh salapp
 # Set workdir for container
 WORKDIR /home/salapp
 # Copy requirements into WORKDIR in container
@@ -11,7 +11,7 @@ RUN python -m venv venv
 # Install requirements into venv
 RUN venv/bin/pip install -r requirements.txt
 # Install deployment requirements
-RUN venv/bin/pip install gunicorn pymysql
+RUN venv/bin/pip install gunicorn pymysql cryptography
 # Copy app, deployment, and cert/key files into the container WORKDIR
 COPY app app
 COPY migrations migrations
